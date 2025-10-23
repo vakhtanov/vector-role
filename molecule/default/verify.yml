@@ -1,0 +1,14 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if vector is installed
+      ansible.builtin.command: which vector
+      register: vector_installed
+      ignore_errors: true
+      changed_when: false
+
+    - name: Assert Vector is installed
+      ansible.builtin.assert:
+        that: vector_installed.rc == 0
+        msg: "Vector is not installed"
